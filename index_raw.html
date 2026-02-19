@@ -1,0 +1,2018 @@
+<!DOCTYPE html>
+<html>
+   <head>
+
+       <!-- SCRIPT REDTRACK -->
+       
+       <!-- SCRIPT REDTRACK -->
+       
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Secret Recipe</title>
+      <link rel="icon" href="assets/favicon.ico">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+      <link rel="stylesheet" href="css/styles.css">
+      <style type="text/css">
+         :root {
+         --primary-color: #d71d82;
+         --secondary-color: #ff9fcb;
+         --third-color: #ff9fcb;
+         --fourth-color: #ae519b;
+         --primary-color-light: #753ca3;
+         --primary-color-dark: #541437;
+         --secondary-color-light: #bb9bdf;
+         --secondary-color-dark: #f29fff;
+         --contrast-color: #ffff7d;
+         --star-color: #FAB005;
+         --check-green: #3ae008;
+         --text-color: #231F20;
+         --light-color: #F1F1F1;
+         }
+         body {
+         font-family: sans-serif;
+         background-color: #f8f9fa;
+         }
+         .quiz-container {
+         max-width: 900px;
+         margin: 20px auto;
+         padding: 20px;
+         }
+         .quiz-card {
+         background: linear-gradient(90deg, var(--primary-color-dark), var(--primary-color));
+         border: 4px solid white;
+         box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
+         color: white;
+         padding: 40px 30px;
+         border-radius: 20px;
+         text-align: center;
+         min-height: 500px;
+         display: flex;
+         flex-direction: column;
+         justify-content: center;
+         }
+         .quiz-header h2 {
+         color: white;
+         text-shadow: 2px 2px rgba(0, 0, 0, 0.3);
+         margin-bottom: 20px;
+         font-weight: bold;
+         }
+         .quiz-description {
+         font-size: 1.1rem;
+         margin-bottom: 30px;
+         opacity: 0.9;
+         }
+         .question {
+         display: none;
+         animation: fadeIn 0.5s ease-in;
+         }
+         .question.active {
+         display: block;
+         }
+         .question h4 {
+         color: white;
+         text-shadow: 2px 2px rgba(0, 0, 0, 0.3);
+         margin-bottom: 30px;
+         font-size: 1.5rem;
+         }
+         .options-container {
+         max-width: 400px;
+         margin: 0 auto 30px auto;
+         }
+         .option {
+         border-radius: 15px;
+         color: white;
+         font-weight: 600;
+         background-color: var(--primary-color-dark) !important;
+         border: 2px solid var(--primary-color) !important;
+         width: 100%;
+         margin-bottom: 15px;
+         padding: 15px 20px;
+         transition: all 0.3s ease;
+         cursor: pointer;
+         font-size: 1rem;
+         }
+         .option:hover {
+         border-color: white !important;
+         box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+         transform: translateY(-2px);
+         background-color: rgba(255, 255, 255, 0.1) !important;
+         }
+         .option:active {
+         transform: translateY(0);
+         }
+         .form-check-container {
+         display: grid;
+         grid-template-columns: 1fr 1fr;
+         max-width: 600px;
+         margin: 0 auto;
+         gap: 15px;
+         text-align: left;
+         }
+         .form-check {
+         background-color: var(--primary-color-dark);
+         border: 2px solid var(--primary-color);
+         border-radius: 10px;
+         padding: 15px;
+         cursor: pointer;
+         transition: all 0.3s ease;
+         }
+         .form-check:hover {
+         border-color: white;
+         box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+         }
+         .form-check input[type="checkbox"] {
+         margin-right: 10px;
+         transform: scale(1.2);
+         margin-left: 0;
+         }
+         .form-check label {
+         color: white;
+         cursor: pointer;
+         font-weight: 500;
+         }
+         .navigation-buttons {
+         margin-top: 30px;
+         }
+         .btn-back {
+         background-color: rgba(255, 255, 255, 0.2) !important;
+         border: 2px solid rgba(255, 255, 255, 0.5) !important;
+         color: white !important;
+         padding: 10px 25px !important;
+         border-radius: 25px !important;
+         font-weight: 600 !important;
+         transition: all 0.3s ease !important;
+         }
+         .btn-back:hover {
+         background-color: rgba(255, 255, 255, 0.3) !important;
+         border-color: white !important;
+         color: white !important;
+         }
+         .btn-calculate {
+         background: linear-gradient(45deg, var(--contrast-color), #fff34f);
+         border: none;
+         color: #000;
+         padding: 12px 30px;
+         border-radius: 25px;
+         font-weight: 700;
+         font-size: 1.1rem;
+         transition: all 0.3s ease;
+         margin-left: 15px;
+         }
+         .btn-calculate:hover {
+         transform: translateY(-2px);
+         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+         color: #000;
+         }
+         .progress-section {
+         display: none;
+         }
+         .progress-section.active {
+         display: block;
+         }
+         .progress-bar-container {
+         background-color: rgba(255, 255, 255, 0.3);
+         height: 20px;
+         border-radius: 10px;
+         overflow: hidden;
+         margin: 20px auto;
+         max-width: 400px;
+         }
+         .progress-fill {
+         background: linear-gradient(90deg, #32cd32, #228b22);
+         height: 100%;
+         width: 0%;
+         border-radius: 10px;
+         transition: width 0.3s ease;
+         }
+         .progress-fill.animate {
+         animation: progressAnimation 15s forwards ease-out;
+         }
+         .progress-steps {
+         position: relative;
+         height: 40px;
+         margin-top: 20px;
+         }
+         .step-txt {
+         position: absolute;
+         width: 100%;
+         color: white;
+         opacity: 0;
+         font-weight: 500;
+         top: 0;
+         left: 0;
+         transition: opacity 0.5s ease-in-out;
+         }
+         .step-txt.active {
+         opacity: 1;
+         }
+         .result-section {
+         display: none;
+         text-align: left;
+         }
+         .result-section.active {
+         display: block;
+         }
+         .result-content {
+         display: flex;
+         align-items: center;
+         gap: 30px;
+         }
+         .result-text h2 {
+         color: var(--contrast-color);
+         margin-bottom: 20px;
+         }
+         .result-text p {
+         margin-bottom: 15px;
+         line-height: 1.6;
+         }
+         .unlock-btn {
+         background: linear-gradient(45deg, var(--contrast-color), #fff34f);
+         border: none;
+         color: #000 !important;
+         padding: 15px 25px;
+         border-radius: 15px;
+         font-weight: 700;
+         font-size: 1.1rem;
+         transition: all 0.3s ease;
+         margin-top: 20px;
+         }
+         .unlock-btn:hover {
+         transform: translateY(-3px);
+         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+         color: #000 !important;
+         }
+         .result-image {
+         max-width: 300px;
+         border-radius: 15px;
+         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+         }
+         @keyframes fadeIn {
+         from { opacity: 0; transform: translateY(20px); }
+         to { opacity: 1; transform: translateY(0); }
+         }
+         @keyframes progressAnimation {
+         0% { width: 0%; }
+         25% { width: 30%; }
+         50% { width: 60%; }
+         75% { width: 85%; }
+         100% { width: 100%; }
+         }
+         @media (max-width: 768px) {
+         .quiz-card {
+         padding: 30px 20px;
+         margin: 10px;
+         }
+         .form-check-container {
+         grid-template-columns: 1fr;
+         max-width: 320px;
+         }
+         .quiz-description {
+         font-size: 1rem;
+         }
+         .result-content {
+         flex-direction: column;
+         text-align: center;
+         }
+         .result-image {
+         max-width: 250px;
+         }
+         .btn-calculate {
+         margin-left: 0;
+         margin-top: 15px;
+         }
+         }
+         @media (max-width: 480px) {
+         .quiz-card {
+         padding: 25px 15px;
+         }
+         .options-container {
+         max-width: 100%;
+         }
+         .option {
+         font-size: 0.9rem;
+         }
+         }
+      </style>
+      <!-- Google Fonts -->
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+      <!-- END GoogleFonts -->
+      <!-- Custom CSS -->
+      <!-- <link rel="stylesheet" type="text/css" href="assets/pages/vsl/vbl/css/style.css?v=1"> -->
+      <link rel="stylesheet" type="text/css" href="assets/pages/vsl/vbl/css/page.css">
+      <link rel="stylesheet" type="text/css" href="assets/pages/vsl/vbl/css/bootstrap.css">
+      <link rel="stylesheet" type="text/css" href="assets/main/bootstrap/bootstrap-icons.min.css">
+      <link rel="stylesheet" type="text/css" href="assets/pages/vsl/vbl/css/custom.css">
+      <link rel="stylesheet" type="text/css" href="assets/pages/vsl/vbl/css/fbcomments.css">
+      <link rel="stylesheet" type="text/css" href="assets/pages/vsl/vbl/css/vsll.css">
+      <!-- Custom CSS -->
+      <!-- Preload Vturb -->
+<script>!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);</script>
+<link rel="preload" href="https://scripts.converteai.net/e2c33673-3db6-47ad-bf8e-2b783d6ab54c/ab-test/6969a5416104ebbccfda5b2a/player.js" as="script">
+<link rel="preload" href="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js" as="script">
+<link rel="dns-prefetch" href="https://cdn.converteai.net">
+<link rel="dns-prefetch" href="https://scripts.converteai.net">
+<link rel="dns-prefetch" href="https://images.converteai.net">
+<link rel="dns-prefetch" href="https://m3u8.vturb.net">
+<link rel="dns-prefetch" href="https://api.vturb.com.br">
+      <!-- Preload Vturb -->
+      <script src="https://scripts.clickbank.net/hop.min.js" defer></script>
+        <!-- Meta Pixel Code -->
+        <script>
+  window.pixelId = "69433659bd288ed114923efe";
+  var a = document.createElement("script");
+  a.setAttribute("async", "");
+  a.setAttribute("defer", "");
+  a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+  document.head.appendChild(a);
+</script>
+        <!-- End Meta Pixel Code -->
+        <script>
+            // Altere aqui o link de back redirect
+            var urlBackRedirect = 
+             urlBackRedirect = urlBackRedirect = urlBackRedirect.trim() +
+                   (urlBackRedirect.indexOf("?") > 0 ? '&' : '?') +
+                   document.location.search.replace('?', '').toString();
+            history.pushState({}, "", location.href);
+            history.pushState({}, "", location.href);
+            window.onpopstate = function () {
+                setTimeout(function () {
+                   location.href = urlBackRedirect;
+                }, 1);
+            };
+        </script>
+   </head>
+   <body>
+      <main id="container">
+         <header class="red-header">
+            <h1>HEALTH</h1>
+            <img src="img/menu-toggle.webp">
+         </header>
+         <marquee>Daily updates on wellness and health - Daily updates on wellness and health - Daily updates on wellness and health - Daily updates on wellness and health</marquee>
+         <section class="principal">
+            <div class="container container-principal">
+               <!--<h1 style="font-weight: 500 !important;"><span style="color: #9c0505;">URGENT:</span> Expert reveals the 3 ingredients of the recipe to burn 15 lbs in 10 days <span style="color: #9c0505;"></span></h1>-->
+               <p class="txt_info_noticia"><b>By Dra. Patrícia Henderson</b><br>Updated 30 minutes ago <span class="data_atual"></span></p>
+               <div class="video_vturb" id="video" data-vdelay="20">
+                   
+                  <!-- video code here -->
+      <vturb-smartplayer id="ab-6969a5416104ebbccfda5b2a" style="display: block; margin: 0 auto; width: 100%; "></vturb-smartplayer> <script type="text/javascript"> var s=document.createElement("script"); s.src="https://scripts.converteai.net/e2c33673-3db6-47ad-bf8e-2b783d6ab54c/ab-test/6969a5416104ebbccfda5b2a/player.js", s.async=!0,document.head.appendChild(s); </script>
+                  <!-- video code here -->
+                  
+                  <img src="img/news-logos.webp" class="img_adv">
+               </div>
+            </div>
+            <div>
+               <div class="quiz-container esconder">
+                  <div class="quiz-card">
+                     <div id="quiz-section">
+                        <div class="quiz-header">
+                           <h2>Find Your Ideal <strong>Choco Burn</strong> Formula</h2>
+                           <p class="quiz-description d-none d-md-block">
+                              Answer these quick questions to craft a powerful, customized solution—perfectly aligned with your body, your goals, and your lifestyle. Get ready for results you'll see and feel!
+                           </p>
+                           <p class="quiz-description d-md-none">
+                              Answer these quick questions so we can create a personalized Choco Burn solution, tailored to your body, your goals, and your unique journey.
+                           </p>
+                        </div>
+                        <div id="question1" class="question active meu-bloco smartplayer-scroll-event">
+                           <h4>How old are you?</h4>
+                           <div class="options-container">
+                              <button class="btn option" data-value="Less than 20 years old">Less than 20 years old</button>
+                              <button class="btn option" data-value="20 to 29 years old">20 to 29 years old</button>
+                              <button class="btn option" data-value="30 to 39 years old">30 to 39 years old</button>
+                              <button class="btn option" data-value="40 to 49 years old">40 to 49 years old</button>
+                              <button class="btn option" data-value="50 to 59 years old">50 to 59 years old</button>
+                              <button class="btn option" data-value="60 years old or more">60 years old or more</button>
+                           </div>
+                        </div>
+                        <div id="question2" class="question">
+                           <h4>What's your current weight?</h4>
+                           <div class="options-container">
+                              <button class="btn option" data-value="Less than 120 lbs">Less than 120 lbs</button>
+                              <button class="btn option" data-value="121 to 140 lbs">121 to 140 lbs</button>
+                              <button class="btn option" data-value="141 to 160 lbs">141 to 160 lbs</button>
+                              <button class="btn option" data-value="161 to 180 lbs">161 to 180 lbs</button>
+                              <button class="btn option" data-value="181 to 200 lbs">181 to 200 lbs</button>
+                              <button class="btn option" data-value="More than 200 lbs">More than 200 lbs</button>
+                           </div>
+                           <div class="navigation-buttons">
+                              <button class="btn btn-back" onclick="previousQuestion()">← Previous</button>
+                           </div>
+                        </div>
+                        <div id="question3" class="question">
+                           <h4>What's your height?</h4>
+                           <div class="options-container">
+                              <button class="btn option" data-value="Less than 4'9">Less than 4'9"</button>
+                              <button class="btn option" data-value="4'9 to 5'2">4'9" to 5'2"</button>
+                              <button class="btn option" data-value="5'2 to 5'5">5'2" to 5'5"</button>
+                              <button class="btn option" data-value="5'5 to 5'9">5'5" to 5'9"</button>
+                              <button class="btn option" data-value="More than 5'9">More than 5'9"</button>
+                           </div>
+                           <div class="navigation-buttons">
+                              <button class="btn btn-back" onclick="previousQuestion()">← Previous</button>
+                           </div>
+                        </div>
+                        <div id="question4" class="question">
+                           <h4>How many pounds would you like to lose?</h4>
+                           <div class="options-container">
+                              <button class="btn option" data-value="Less than 10 lbs">Less than 10 lbs</button>
+                              <button class="btn option" data-value="10 to 20 lbs">10 to 20 lbs</button>
+                              <button class="btn option" data-value="21 to 30 lbs">21 to 30 lbs</button>
+                              <button class="btn option" data-value="31 to 50 lbs">31 to 50 lbs</button>
+                              <button class="btn option" data-value="More than 50 lbs">More than 50 lbs</button>
+                              <button class="btn option" data-value="I don't have a number in mind">I don't have a number in mind</button>
+                           </div>
+                           <div class="navigation-buttons">
+                              <button class="btn btn-back" onclick="previousQuestion()">← Previous</button>
+                           </div>
+                        </div>
+                        <div id="question5" class="question">
+                           <h4>Which parts do you want to lose fat from?</h4>
+                           <div class="form-check-container">
+                              <div class="form-check">
+                                 <input class="form-check-input" type="checkbox" id="abdomen" value="Abdomen">
+                                 <label class="form-check-label" for="abdomen">Abdomen</label>
+                              </div>
+                              <div class="form-check">
+                                 <input class="form-check-input" type="checkbox" id="sides" value="Sides">
+                                 <label class="form-check-label" for="sides">Sides</label>
+                              </div>
+                              <div class="form-check">
+                                 <input class="form-check-input" type="checkbox" id="arms" value="Arms">
+                                 <label class="form-check-label" for="arms">Arms</label>
+                              </div>
+                              <div class="form-check">
+                                 <input class="form-check-input" type="checkbox" id="hips" value="Hips">
+                                 <label class="form-check-label" for="hips">Hips</label>
+                              </div>
+                              <div class="form-check">
+                                 <input class="form-check-input" type="checkbox" id="legs" value="Legs">
+                                 <label class="form-check-label" for="legs">Legs</label>
+                              </div>
+                              <div class="form-check">
+                                 <input class="form-check-input" type="checkbox" id="other" value="Other areas">
+                                 <label class="form-check-label" for="other">Other areas</label>
+                              </div>
+                           </div>
+                           <div class="navigation-buttons">
+                              <button class="btn btn-back" onclick="previousQuestion()">← Previous</button>
+                              <button class="btn btn-calculate" onclick="startCalculation()">Calculate My Formula</button>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- Progress Section -->
+                     <div id="progress-section" class="progress-section">
+                        <h4>Calculating Your Personalized Formula...</h4>
+                        <p class="mb-4">Please wait just a few moments while we calculate the <span style="color: var(--contrast-color);">ideal nutrient</span> ratio for your body. We'll fine-tune every ingredient to ensure you get the results you've been craving—starting from Day One!</p>
+                        <div class="progress-bar-container">
+                           <div id="progress-fill" class="progress-fill"></div>
+                        </div>
+                        <p class="mt-3">Time remaining: <strong id="countdown">10</strong> seconds</p>
+                        <div id="progress-steps" class="progress-steps">
+                           <div class="step-txt">Analyzing body characteristics…</div>
+                           <div class="step-txt">Calculating BMI and lean mass…</div>
+                           <div class="step-txt">Reviewing ideal nutrient ratios…</div>
+                           <div class="step-txt">Formulating your personalized blend…</div>
+                        </div>
+                     </div>
+                     <!-- Result Section -->
+                     <div id="result-section" class="result-section">
+                        <div class="result-content">
+                           <div class="result-text">
+                              <h2>Congratulations!</h2>
+                              <p>Your personalized Choco Burn formula is ready — arefully crafted to support you on your journey toward better wellness and faster results. </p>
+                              <p>And there’s more: By choosing our 6-Bottles program, you unlock a MEGA EXCLUSIVE discount. </p>
+                              <p>This treatment gives your body the consistent support it needs to improve metabolism, enhance energy, and encourage lasting, visible changes over time — without restrictive diets or empty promises.</p>
+                              <p class="mb-0">Ready to start?</p>
+                              <button class="btn unlock-btn" onclick="unlockDiscount()">Unlock my discount and personalized formula!</button>
+                           </div>
+                           <div class="d-md-block">
+                              <img src="img/patricia.jpeg" class="result-image">
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <script>
+                  let currentQuestion = 1;
+                  const totalQuestions = 5;
+                  const answers = {};
+                  
+                  document.addEventListener('DOMContentLoaded', function() {
+                      setupOptionListeners();
+                  });
+                  
+                  function setupOptionListeners() {
+                      document.querySelectorAll('.option').forEach(button => {
+                          button.addEventListener('click', function() {
+                              const questionNum = this.closest('.question').id.replace('question', '');
+                              answers[`question${questionNum}`] = this.dataset.value;
+                              
+                              this.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+                              this.style.borderColor = 'white';
+                              
+                              setTimeout(() => {
+                                  nextQuestion();
+                              }, 300);
+                          });
+                      });
+                  }
+                  
+                  function nextQuestion() {
+                      if (currentQuestion < totalQuestions) {
+                          document.getElementById(`question${currentQuestion}`).classList.remove('active');
+                          
+                          currentQuestion++;
+                          document.getElementById(`question${currentQuestion}`).classList.add('active');
+                      }
+                  }
+                  
+                  function previousQuestion() {
+                      if (currentQuestion > 1) {
+                          document.getElementById(`question${currentQuestion}`).classList.remove('active');
+                      
+                          currentQuestion--;
+                          document.getElementById(`question${currentQuestion}`).classList.add('active');
+                      }
+                  }
+                  
+                  function startCalculation() {
+                      const checkboxes = document.querySelectorAll('#question5 input[type="checkbox"]:checked');
+                      const selectedAreas = Array.from(checkboxes).map(cb => cb.value);
+                      answers.targetAreas = selectedAreas;
+                  
+                      document.getElementById('quiz-section').style.display = 'none';
+                      document.getElementById('progress-section').classList.add('active');
+                  
+                      const progressFill = document.getElementById('progress-fill');
+                      const progressSteps = document.getElementById('progress-steps');
+                      const countdown = document.getElementById('countdown');
+                      
+                      progressFill.classList.add('animate');
+                  
+                      let timeLeft = 10;
+                      let currentStep = 0;
+                      const stepTexts = document.querySelectorAll('.step-txt');
+                  
+                      if (stepTexts[0]) {
+                          stepTexts[0].classList.add('active');
+                      }
+                  
+                      const timer = setInterval(() => {
+                          timeLeft--;
+                          countdown.textContent = timeLeft;
+                          
+                          const newStep = Math.floor((15 - timeLeft) / 3.75);
+                          if (newStep !== currentStep && newStep < stepTexts.length) {
+                              if (stepTexts[currentStep]) {
+                                  stepTexts[currentStep].classList.remove('active');
+                              }
+                              currentStep = newStep;
+                              if (stepTexts[currentStep]) {
+                                  stepTexts[currentStep].classList.add('active');
+                              }
+                          }
+                          
+                          if (timeLeft <= 0) {
+                              clearInterval(timer);
+                              stepTexts.forEach(step => step.classList.remove('active'));
+                              showResults();
+                          }
+                      }, 1000);
+                  }
+                  
+                  function showResults() {
+                      document.getElementById('progress-section').classList.remove('active');
+                      document.getElementById('result-section').classList.add('active');
+                  }
+                  
+                  function unlockDiscount() {
+                      document.querySelector('.after-quiz').style.display = "block"
+                      const produtosSection = document.querySelector('#products');
+                       if (produtosSection) {
+                         const top = produtosSection.offsetTop;
+                         window.scrollTo({ top, behavior: 'smooth' });
+                       }
+                  }
+                  
+                  function resetQuiz() {
+                      currentQuestion = 1;
+                      Object.keys(answers).forEach(key => delete answers[key]);
+                      
+                      document.querySelectorAll('.question').forEach(q => q.classList.remove('active'));
+                      document.getElementById('question1').classList.add('active');
+                      document.getElementById('quiz-section').style.display = 'block';
+                      document.getElementById('progress-section').classList.remove('active');
+                      document.getElementById('result-section').classList.remove('active');
+                      
+                      document.getElementById('progress-fill').classList.remove('animate');
+                      document.querySelectorAll('.step-txt').forEach(step => step.classList.remove('active'));
+                  }
+               </script>
+               <div class="after-quiz" style="display: none;">
+                  <!-- CTA Headline -->
+                  <div class="py-3 py-md-5" style="background-color: var(--primary-color);">
+                     <div class="container text-center">
+                        <h2 class="title-claim mb-0 text-white">Choose Your Discounted Choco Burn Package With Our Special Time-Limited Offer!</h2>
+                        <div class="strip3 flt">
+                           <div class="container bdinpad">
+                              <ul class="strip3-list">
+                                 <li>
+                                    <img src="img/hour-glass.png" alt="" class="hourglass">
+                                    <strong>Choco Burn Bottles Remaining:</strong> <span class="countdown">84</span>
+                                 </li>
+                              </ul>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- CTA Headline -->
+                  <!-- Products -->
+
+                  <section class="pb-4 products" id="products">
+                     <div class="container">
+                        <div class="shipbx my-4 my-md-5">
+                           <div class="shipiconbx"><img src="img/ship-icon.png" alt=""></div>
+                           <p class="shipbx-txt1">Enjoy <span class="red">FREE SHIPPING</span> on 3&nbsp;and 6-Bottle
+                              Orders!
+                           </p>
+                           <p class="shipbx-txt2">*For long-term results, we recommend choosing the
+                              6&nbsp;bottle&nbsp;option
+                           </p>
+                        </div>
+                     </div>
+                     <div class="container">
+                        <div class="row align-items-center">
+                           <!-- 6 Bottles -->
+                           <div class="col-12 col-md-4 mb-3">
+                              <a href="#" class="item promo buylink oferta-um">
+                                 <div class="wrapper">
+                                    <div class="item-header">BEST VALUE!</div>
+                                    <div class="item-sides">
+                                       <div class="item-img">
+                                          <div class="supply"><b>3+3 Bottles</b></div>
+                                          <p>Our Recommended Option</p>
+                                          <img src="img/Mockup06+ebooksc.png" class="hiddenM" alt="6 Bottles plus 3 free ebooks">
+                                          <img src="img/Mockup06+badgec.png" class="hiddenD" alt="6 Bottles">
+                                          <img src="img/ebooks.png" class="hiddenD"  alt="3 free ebooks">
+                                       </div>
+                                       <div class="item-right">
+                                          <div class="item-info">
+                                             <div class="price">
+                                                <b><sup>$</sup>49</b><span>PER<br>BOTTLE</span>
+                                             </div>
+                                             <ul class="features-list">
+                                                <li><span class="checkmark">✓</span> YOU SAVE $300!</li>
+                                                <li><span class="checkmark">✓</span> BIGGEST DISCOUNT</li>
+                                                <li><span class="checkmark">✓</span> 60 DAYS GUARANTEE</li>
+                                                <li><span  class="checkmark">✓</span> 3 FREE EBOOKS!</li>
+                                             </ul>
+                                          </div>
+                                          <div class="item-buy">
+                                             <div class=" cta-pulse cta">Add to cart <span class="cursor-icon">👆</span></div>
+                                             <img src="assets/main/products/img/cards-dark.webp" alt="Cards" class="card-flags">
+                                          </div>
+                                          <div class="item-totals">
+                                             <div class="totals">Total: <s>$594</s> <b>$294</b></div>
+                                             <div class="shipping">+&nbsp;FREE SHIPPING</div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </a>
+                           </div>
+                           <!-- 6 Bottles -->
+                           <!-- 3 Bottles -->
+                           <div class="col-12 col-md-4 mb-3">
+                              <a href="#" class="item promo buylink oferta-dois">
+                                 <div class="wrapper">
+                                    <div class="item-header">Most Popular</div>
+                                       <div class="item-sides">
+                                          <div class="item-img">
+                                             <div class="supply"><b>2+1 Bottles</b></div>
+                                             <img src="img/prod/Mockup-03 (1).png" alt="3 Bottles">
+                                          </div>
+                                          <div class="item-right">
+                                             <div class="item-info">
+                                                <div class="price">
+                                                   <b><sup>$</sup>69</b><span>PER<br>BOTTLE</span>
+                                                </div>
+                                                <ul class="features-list">
+                                                   <li><span class="checkmark">✓</span> YOU SAVE $90!</li>
+                                                   <li><span class="checkmark">✓</span> 60 DAYS GUARANTEE</li>
+                                                </ul>
+                                             </div>
+                                             <div class="item-buy">
+                                                <div class=" cta-price cta">Add to cart</div>
+                                                <img src="assets/main/products/img/cards.webp" alt="Cards" class="card-flags">
+                                             </div>
+                                             <div class="item-totals">
+                                                <div class="totals">Total: <s>$297</s> <b>$207</b></div>
+                                                <div class="shipping">+&nbsp;FREE SHIPPING</div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                 </div>
+                              </a>
+                           </div>
+                           <!-- 3 Bottles -->
+                           <!-- 2 Bottles -->
+                           <div class="col-12 col-md-4 mb-3">
+                              <a href="#" class="item promo buylink oferta-tres">
+                                 <div class="wrapper">
+                                    <div class="item-header">Basic</div>
+                                    <div class="item-sides">
+                                       <div class="item-img">
+                                          <div class="supply"><b>1 BOTTLE</b></div>
+                                          <img src="img/prod/Mockup-01c.png" alt="1 Bottle">
+                                       </div>
+                                       <div class="item-right">
+                                          <div class="item-info">
+                                             <div class="price">
+                                                <b><sup>$</sup>89</b><span>PER<br>BOTTLE</span>
+                                             </div>
+                                             <ul class="features-list">
+                                                <li><span class="checkmark">✓</span> YOU SAVE $10!</li>
+                                                <li><span class="checkmark">✓</span> 60 DAYS GUARANTEE</li>
+                                             </ul>
+                                          </div>
+                                       
+                                          <div class="item-buy"> 
+                                             <div class=" cta-price cta">Add to cart</div>
+                                             <img src="assets/main/products/img/cards.webp" alt="Cards" class="card-flags">
+                                          </div>
+                                          <div class="item-totals">
+                                             <div class="totals">Total: <s>$99</s> <b>$89</b></div>
+                                             <div class="shipping">+&nbsp; SHIPPING</div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </a>
+                           </div>
+                           <!-- 2 Bottles -->
+                        </div>
+                     </div>
+                  </section>
+
+                  <!-- Products -->
+                  <!-- Guarantee -->
+                  <section id="guarantee" class="py-5">
+                     <div class="container position-relative">
+                        <div class="row align-items-center justify-content-center">
+                           <div class="col-12 col-md-3 text-center">
+                              <figure><img src="img/garantia.webp" alt="Guarantee" class="mb-3"></figure>
+                           </div>
+                           <div class="col-12 col-md-9 text-start">
+                              <h2 class="fs-2" style="font-weight: 700;">100% Satisfaction or Your Money Back <br class="d-none d-md-block"><span>60-Day Unconditional Guarantee</span></h2>
+                              <p>We believe in the quality of Choco Burn and in our results, and we want you to feel confident in your purchase. That’s why we offer a 60-day guarantee from the date of purchase. If for any reason you are not satisfied with the product, simply contact our team, and we will be happy to assist you with a refund.</p>
+                              <div class="d-flex gap-2 flex-wrap align-items-center justify-content-center mt-3 badges">
+                                 <figure><img src="assets/pages/home/img/gmp.png" alt="Badge"></figure>
+                                 <figure><img src="assets/pages/home/img/fda.png" alt="Badge"></figure>
+                                 <figure><img src="assets/pages/home/img/nat.png" alt="Badge"></figure>
+                                 <figure><img src="assets/pages/home/img/foreign.png" alt="Badge"></figure>
+                                 <figure><img src="assets/pages/home/img/gmo.png" alt="Badge"></figure>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </section>
+                  <!-- Guarantee -->
+                  <!-- Bonus -->
+                  <section id="bonus-headline" class="py-3 py-md-5" style="background-color: var(--primary-color);">
+                     <div class="container text-center">
+                        <h2 class="title-claim mb-2 text-white">Transform Your Body Faster With Our 3 Or 6 Month Choco Burn Package</h2>
+                        <p class="subtitle fw-bold fs-5 text-center m-0" style="color: #f6bbff;font-style: italic;text-shadow: 2px 2px #00000033;">And unlock over $200 in exclusive bonuses—<u class="text-white">absolutely FREE!</u></p>
+                     </div>
+                  </section>
+                  <section id="bonus" class="pt-4 pb-5">
+                     <div class="container">
+                        <div class="row">
+                           <div class="col-lg-6">
+                              <div class="ebook px-md-4 pb-md-4">
+                                 <div class="img-mockup">
+                                    <img src="img/ebooks/ebook1.png" alt="Bonus">
+                                    <div class="bonusbx">
+                                       <p class="bonusbx-txt1">FREE</p>
+                                       <p class="bonusbx-txt2">BONUS</p>
+                                       <p class="bonusbx-txt3">#1</p>
+                                    </div>
+                                 </div>
+                                 <p></p>
+                                 <h3>ANTI-STRETCH MARK AND ANTI-CELLULITE PROTOCOL</h3>
+                                 <p class="s7lhding2"><span class="strikeout">(Value: $20/month)</span> <span class="span1">Today: FREE</span></p>
+                                 <div class="d-flex gap-2 text-white text-start mb-3">
+                                    <i class="fa-solid fa-circle-check" style="color: var(--check-green)"></i>
+                                    <div><b>100% Natural Protocol</b> – Learn the step-by-step method using accessible ingredients and simple techniques to visibly reduce cellulite and stretch marks within weeks.</div>
+                                 </div>
+                                 <div class="d-flex gap-2 text-white text-start mb-3">
+                                    <i class="fa-solid fa-circle-check" style="color: var(--check-green)"></i>
+                                    <div><b>Smoother, Firmer Skin</b> – With consistent use, your skin becomes firmer, more radiant, and softer—no expensive treatments or invasive procedures required.</div>
+                                 </div>
+                                 <div class="d-flex gap-2 text-white text-start mb-3">
+                                    <i class="fa-solid fa-circle-check" style="color: var(--check-green)"></i>
+                                    <div><b>Real, Long-Lasting Results</b> – Built on healthy habits and daily care, this protocol delivers visible transformations that last from the inside out.</div>
+                                 </div>
+                              </div>
+                           </div>
+                           <!---->
+                           <div class="col-lg-6">
+                              <div class="ebook px-md-4 pb-md-4">
+                                 <div class="img-mockup">
+                                    <img src="img/ebooks/ebook2.png" alt="Bonus">
+                                    <div class="bonusbx">
+                                       <p class="bonusbx-txt1">FREE</p>
+                                       <p class="bonusbx-txt2">BONUS</p>
+                                       <p class="bonusbx-txt3">#2</p>
+                                    </div>
+                                 </div>
+                                 <p>*This is a digital download</p>
+                                 <h3>LIVE LONGER AND BETTER</h3>
+                                 <p class="s7lhding2"><span class="strikeout">(Value: $49)</span> <span class="span1">Today: FREE!</span></p>
+                                 <div class="d-flex gap-2 text-white text-start mb-3">
+                                    <i class="fa-solid fa-circle-check" style="color: var(--check-green)"></i>
+                                    <div><b>The Longevity Blueprint</b> – Uncover the key habits, foods, and mindsets shared by the world’s longest-living people—and how you can apply them today.</div>
+                                 </div>
+                                 <div class="d-flex gap-2 text-white text-start mb-3">
+                                    <i class="fa-solid fa-circle-check" style="color: var(--check-green)"></i>
+                                    <div><b>Boost Energy & Mental Clarity</b> – Learn simple routines that naturally improve your energy, focus, and emotional well-being—without pills or extreme diets.</div>
+                                 </div>
+                                 <div class="d-flex gap-2 text-white text-start mb-3">
+                                    <i class="fa-solid fa-circle-check" style="color: var(--check-green)"></i>
+                                    <div><b>Live Not Just Longer—But Better</b> – Discover how to stay active, independent, and vibrant at every age, with practical tips that fit into any lifestyle.</div>
+                                 </div>
+                              </div>
+                           </div>
+                           <!---->
+                           <div class="col-lg-6">
+                              <div class="ebook px-md-4 pb-md-4">
+                                 <div class="img-mockup">
+                                    <img src="img/ebooks/ebook3.png" alt="Bonus">
+                                    <div class="bonusbx">
+                                       <p class="bonusbx-txt1">FREE</p>
+                                       <p class="bonusbx-txt2">BONUS</p>
+                                       <p class="bonusbx-txt3">#3</p>
+                                    </div>
+                                 </div>
+                                 <p>*This is a digital download</p>
+                                 <h3>HOW TO PLAN HEALTHY MEALS ON A BUDGET</h3>
+                                 <p class="s7lhding2"><span class="strikeout">(Value: $79)</span> <span class="span1">Today: FREE!</span></p>
+                                 <div class="d-flex gap-2 text-white text-start mb-3">
+                                    <i class="fa-solid fa-circle-check" style="color: var(--check-green)"></i>
+                                    <div><b>Smart Grocery Strategies</b> – Learn how to shop healthy without breaking the bank using a simple list system and smart substitutions.</div>
+                                 </div>
+                                 <div class="d-flex gap-2 text-white text-start mb-3">
+                                    <i class="fa-solid fa-circle-check" style="color: var(--check-green)"></i>
+                                    <div><b>Delicious, Budget-Friendly Recipes</b> – Get over 20 balanced meals that are nutritious, easy to prepare, and super affordable.</div>
+                                 </div>
+                                 <div class="d-flex gap-2 text-white text-start mb-3">
+                                    <i class="fa-solid fa-circle-check" style="color: var(--check-green)"></i>
+                                    <div><b>Meal Prep for the Week</b> – Discover how to plan your meals in advance so you save time, reduce waste, and stay consistent with your health goals.</div>
+                                 </div>
+                              </div>
+                           </div>
+                           <!---->
+                           <div class="col-lg-6">
+                              <div class="ebook px-md-4 pb-md-4">
+                                 <div class="img-mockup">
+                                    <img src="img/ebooks/ebook4.png" alt="Bonus">
+                                    <div class="bonusbx">
+                                       <p class="bonusbx-txt1">FREE</p>
+                                       <p class="bonusbx-txt2">BONUS</p>
+                                       <p class="bonusbx-txt3">#4</p>
+                                    </div>
+                                 </div>
+                                 <p>*This is a digital download</p>
+                                 <h3>GUIDE WITH 9 TONICS TO CONTROL DIABETES AND BLOOD SUGAR LEVELS</h3>
+                                 <p class="s7lhding2"><span class="strikeout">(Value: $39)</span> <span class="span1">Today: FREE!</span></p>
+                                 <div class="d-flex gap-2 text-white text-start mb-3">
+                                    <i class="fa-solid fa-circle-check" style="color: var(--check-green)"></i>
+                                    <div><b>Natural Glucose Control</b> – Learn how simple homemade tonics can help regulate blood sugar levels without relying solely on medications.</div>
+                                 </div>
+                                 <div class="d-flex gap-2 text-white text-start mb-3">
+                                    <i class="fa-solid fa-circle-check" style="color: var(--check-green)"></i>
+                                    <div><b>Stabilize Energy & Cravings</b> – Say goodbye to sudden sugar crashes and fatigue with drinks designed to keep your glucose levels balanced all day.</div>
+                                 </div>
+                              </div>
+                           </div>
+                           <!---->
+                           <div class="col-lg-8 mx-auto">
+                              <div class="ebook px-md-4 pb-md-4">
+                                 <div class="img-mockup">
+                                    <img src="img/ebooks/bottle-bob.gif">
+                                 </div>
+                                 <h3>Your Personalized <b class="fs-2" style="color: var(--secondary-color); text-shadow: -1px -1px 0 #ffffffcc, 2px 2px 0 #6c0048;">Choco Burn Formula</b></h3>
+                                 <div class="d-flex gap-2 text-white text-start mb-3">
+                                    <i class="fa-solid fa-circle-check" style="color: var(--check-green)"></i>
+                                    <div><b>Customized Blend</b> – We adjust the dose and ratio of active nutrients based on your age, weight, and unique challenges, so you can see the fastest possible results.</div>
+                                 </div>
+                                 <div class="d-flex gap-2 text-white text-start mb-3">
+                                    <i class="fa-solid fa-circle-check" style="color: var(--check-green)"></i>
+                                    <div><b>Expert Precision</b> – Each formula is hand-tailored by our team of specialists to match your goals, eliminating the guesswork and maximizing fat-burning around the clock.</div>
+                                 </div>
+                                 <div class="d-flex gap-2 text-white text-start mb-3">
+                                    <i class="fa-solid fa-circle-check" style="color: var(--check-green)"></i>
+                                    <div><b>Accelerated Progress</b> – Because you receive the exact concentration your body craves, you’ll conquer stubborn fat, cravings, and low energy more rapidly than you ever thought possible.</div>
+                                 </div>
+                                 <div class="cta d-block px-0" onclick="navigateToBottles()">
+                                    <div class="cta-label">Add to cart</div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </section>
+                  <!-- Bonus -->
+                  <!-- Free Shipping -->
+                  <section class="free-shipping-section py-4">
+                     <div class="container">
+                        <div class="col-lg-10 m-auto">
+                           <div class="row align-center">
+                              <div class="col-lg-2">
+                                 <img src="img/shopping.png" alt="">
+                              </div>
+                              <div class="col-lg-10 d-flex align-items-center">
+                                 <div>
+                                    <h2>Enjoy FREE Shipping with Our 3 or 6-BottlesPack!</h2>
+                                    <p>*96% Of Customers Order 6 Bottles (<span>Our Recommended Option</span>)
+                                    </p>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </section>
+                  <!-- Free Shipping -->
+                  <!-- Testimonials -->
+                  <div id="testimonials" class="py-5">
+                     <div class="container" style="max-width: 1000px;">
+                        <h2 class="my-3 mb-0 text-center" style="color: var(--primary-color); font-weight: 700;">What People Are Saying About Choco Burn?</h2>
+                        <h4 class="text-center fw-bold mb-4">Real Life-Changing Results!</h4>
+                        <p class="fw-bold mb-2 text-start text-black">Top reviews from the United States</p>
+                        <div class="card-container">
+                           <div class="card">
+                              <div class="row mx-auto">
+                                 <div class="col-lg-12">
+                                    <div class="texts">
+                                       <div class="purchase">
+                                          <img src="img/avatar.webp" alt="Profile">
+                                          <p><strong>Lisa M.</strong> - Montclair, NJ<br></p>
+                                       </div>
+                                       <div class="d-flex flex-wrap gap-2 align-items-center">
+                                          <div class="d-flex gap-1 align-items-center flex-nowrap stars">
+                                             <i class="fa-solid fa-star" style="color:var(--star-color)"></i>
+                                             <i class="fa-solid fa-star" style="color:var(--star-color)"></i>
+                                             <i class="fa-solid fa-star" style="color:var(--star-color)"></i>
+                                             <i class="fa-solid fa-star" style="color:var(--star-color)"></i>
+                                             <i class="fa-solid fa-star" style="color:var(--star-color)"></i>
+                                          </div>
+                                          <p class="m-0"><b>I dropped 32 lbs in 5 weeks</b></p>
+                                       </div>
+                                       <p class="reviewed-on">Reviewed in the United States on January 15, 2025</p>
+                                       <div class="d-flex flex-column flex-sm-row align-items-sm-center flex-wrap verified">
+                                          <span class="me-sm-2">Purchased Choco Burn 6 Bottles Package</span>
+                                          <div class="d-none d-sm-block me-2"></div>
+                                          <span>Verified Purchase</span>
+                                       </div>
+                                       <div class="user">
+                                          <img src="img/ex1.webp" alt="">
+                                       </div>
+                                       <div class="text-user">
+                                          <p>I used to hide from social gatherings cause I felt so self conscious but after just a couple weeks on Choco Burn I'm down 30+ pounds and I'm actually smiling when I look in the mirror. This is hands-down the best decision I’ve made in years</p>
+                                       </div>
+                                       <p class="reviewed-on mb-3">26 people found this helpful</p>
+                                       <div class="helpful-report">
+                                          <div class="d-flex align-center gap-3">
+                                             <div class="helpful">Helpful</div>
+                                             <div class="share"><i class="fa-solid fa-share"></i>Share</div>
+                                          </div>
+                                          <div class="report">Report</div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="card">
+                              <div class="row mx-auto">
+                                 <div class="col-lg-12">
+                                    <div class="texts">
+                                       <div class="purchase">
+                                          <img src="img/avatar.webp" alt="Profile">
+                                          <p><strong>Susan R.</strong> - Boulder, CO<br></p>
+                                       </div>
+                                       <div class="d-flex flex-wrap gap-2 align-items-center">
+                                          <div class="d-flex gap-1 align-items-center flex-nowrap stars">
+                                             <i class="fa-solid fa-star" style="color:var(--star-color)"></i>
+                                             <i class="fa-solid fa-star" style="color:var(--star-color)"></i>
+                                             <i class="fa-solid fa-star" style="color:var(--star-color)"></i>
+                                             <i class="fa-solid fa-star" style="color:var(--star-color)"></i>
+                                             <i class="fa-solid fa-star" style="color:var(--star-color)"></i>
+                                          </div>
+                                          <p class="m-0"><b>In just two months, I’ve lost 47 pounds</b></p>
+                                       </div>
+                                       <p class="reviewed-on">Reviewed in the United States on January 12, 2025</p>
+                                       <div class="d-flex flex-column flex-sm-row align-items-sm-center flex-wrap verified">
+                                          <span class="me-sm-2">Purchased Choco Burn 6 Bottles Package</span>
+                                          <div class="d-none d-sm-block me-2"></div>
+                                          <span>Verified Purchase</span>
+                                       </div>
+                                       <div class="user">
+                                          <img src="img/ex3.webp" alt="">
+                                       </div>
+                                       <div class="text-user">
+                                          <p>Honestly, I was super skeptical at first. I’ve tried so many “miracle” products that did absolutely nothing. But Choco Burn totally shocked me. I’ve lost 47 pounds in just 2 months, my cravings are basically gone, and I wake up with way more energy than I’ve had in years. I was so blown away by the results, I went ahead and ordered 9 more Bottles to stay on track!</p>
+                                       </div>
+                                       <p class="reviewed-on mb-3">21 people found this helpful</p>
+                                       <div class="helpful-report">
+                                          <div class="d-flex align-center gap-3">
+                                             <div class="helpful">Helpful</div>
+                                             <div class="share"><i class="fa-solid fa-share"></i>Share</div>
+                                          </div>
+                                          <div class="report">Report</div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="card">
+                              <div class="row mx-auto">
+                                 <div class="col-lg-12">
+                                    <div class="texts">
+                                       <div class="purchase">
+                                          <img src="img/avatar.webp" alt="Profile">
+                                          <p><strong>Daniel W.</strong> - Seattle, WA<br></p>
+                                       </div>
+                                       <div class="d-flex flex-wrap gap-2 align-items-center">
+                                          <div class="d-flex gap-1 align-items-center flex-nowrap stars">
+                                             <i class="fa-solid fa-star" style="color:var(--star-color)"></i>
+                                             <i class="fa-solid fa-star" style="color:var(--star-color)"></i>
+                                             <i class="fa-solid fa-star" style="color:var(--star-color)"></i>
+                                             <i class="fa-solid fa-star" style="color:var(--star-color)"></i>
+                                             <i class="fa-solid fa-star" style="color:var(--star-color)"></i>
+                                          </div>
+                                          <p class="m-0"><b>I’ve already shed 29 lbs, with about 7 left to go</b></p>
+                                       </div>
+                                       <p class="reviewed-on">Reviewed in the United States on January 10, 2025</p>
+                                       <div class="d-flex flex-column flex-sm-row align-items-sm-center flex-wrap verified">
+                                          <span class="me-sm-2">Purchased Choco Burn 6 Bottles Package</span>
+                                          <div class="d-none d-sm-block me-2"></div>
+                                          <span>Verified Purchase</span>
+                                       </div>
+                                       <div class="user">
+                                          <img src="img/ex2.webp" alt="">
+                                       </div>
+                                       <div class="text-user">
+                                          <p>I started the treatment about a month ago just hoping for a little push, but the difference is huge!!! My energy is way up, and no jittery feeling at all, I've already shed 29 lbs, with about 7 left to go. Honestly, I’m blown away by how fast this works, definitely sticking with it!!</p>
+                                       </div>
+                                       <p class="reviewed-on mb-3">19 people found this helpful</p>
+                                       <div class="helpful-report">
+                                          <div class="d-flex align-center gap-3">
+                                             <div class="helpful">Helpful</div>
+                                             <div class="share"><i class="fa-solid fa-share"></i>Share</div>
+                                          </div>
+                                          <div class="report">Report</div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="card">
+                              <div class="row mx-auto">
+                                 <div class="col-lg-12">
+                                    <div class="texts">
+                                       <div class="purchase">
+                                          <img src="img/avatar.webp" alt="Profile">
+                                          <p><strong>Betty B.</strong> - Charleston, SC<br></p>
+                                       </div>
+                                       <div class="d-flex flex-wrap gap-2 align-items-center">
+                                          <div class="d-flex gap-1 align-items-center flex-nowrap stars">
+                                             <i class="fa-solid fa-star" style="color:var(--star-color)"></i>
+                                             <i class="fa-solid fa-star" style="color:var(--star-color)"></i>
+                                             <i class="fa-solid fa-star" style="color:var(--star-color)"></i>
+                                             <i class="fa-solid fa-star" style="color:var(--star-color)"></i>
+                                             <i class="fa-solid fa-star" style="color:var(--star-color)"></i>
+                                          </div>
+                                          <p class="m-0"><b>I’m already 25 pounds lighter</b></p>
+                                       </div>
+                                       <p class="reviewed-on">Reviewed in the United States on January 8, 2025</p>
+                                       <div class="d-flex flex-column flex-sm-row align-items-sm-center flex-wrap verified">
+                                          <span class="me-sm-2">Purchased Choco Burn 6 Bottles Package</span>
+                                          <div class="d-none d-sm-block me-2"></div>
+                                          <span>Verified Purchase</span>
+                                       </div>
+                                       <div class="text-user">
+                                          <p>being obese made even simple things feel impossible… I could barely keep up with my kid without losing my breath, now just two weeks into Choco Burn, I'm already 25 pounds down and have the energy to run around with my family. I got my joy back and Choco Burn was a huge part of that</p>
+                                       </div>
+                                       <p class="reviewed-on mb-3">22 people found this helpful</p>
+                                       <div class="helpful-report">
+                                          <div class="d-flex align-center gap-3">
+                                             <div class="helpful">Helpful</div>
+                                             <div class="share"><i class="fa-solid fa-share"></i>Share</div>
+                                          </div>
+                                          <div class="report">Report</div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- Testimonials -->
+                  <div id="order-now"></div>
+    
+                 
+                  <!-- CTA Headline -->
+                  <div class="py-3 py-md-5" style="background-color: var(--primary-color);">
+                     <div class="container text-center">
+                        <h2 class="title-claim mb-0 text-white">Hurry! Limited Stock Available – Secure Your Choco Burn Package at 50% Off Today!</h2>
+                        <div class="strip3 flt">
+                           <div class="container bdinpad">
+                              <ul class="strip3-list">
+                                 <li>
+                                    <img src="img/hour-glass.png" alt="" class="hourglass">
+                                    <strong>Choco Burn Bottles Remaining:</strong> <span class="countdown">84</span>
+                                 </li>
+                              </ul>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- CTA Headline -->
+                  <!-- Products -->
+                  <div class="shipbx my-4 my-md-5">
+                     <div class="shipiconbx"><img src="img/ship-icon.png" alt=""></div>
+                     <p class="shipbx-txt1">Enjoy <span class="red">FREE SHIPPING</span> on 3&nbsp;and 6-Bottle
+                        Orders!
+                     </p>
+                     <p class="shipbx-txt2">*For long-term results, we recommend choosing the
+                        6&nbsp;bottle&nbsp;option
+                     </p>
+                  </div>
+                  <section class="pb-4 products">
+                     <div class="container">
+                        <div class="row align-items-center">
+                           <!-- 6 Bottles -->
+                           <div class="col-12 col-md-4 mb-3">
+                              <a href="#" class="item promo buylink oferta-um">
+                                 <div class="wrapper">
+                                    <div class="item-header">BEST VALUE!</div>
+                                    <div class="item-sides">
+                                       <div class="item-img">
+                                          <div class="supply"><b>3+3 Bottles</b></div>
+                                          <p>Our Recommended Option</p>
+                                          <img src="img/Mockup06+ebooksc.png" class="hiddenM" alt="6 Bottles plus 3 free ebooks">
+                                          <img src="img/Mockup06+badgec.png" class="hiddenD" alt="6 Bottles">
+                                          <img src="img/ebooks.png" class="hiddenD"  alt="3 free ebooks">
+                                       </div>
+                                       <div class="item-right">
+                                          <div class="item-info">
+                                             <div class="price">
+                                                <b><sup>$</sup>49</b><span>PER<br>BOTTLE</span>
+                                             </div>
+                                             <ul class="features-list">
+                                                <li><span class="checkmark">✓</span> YOU SAVE $300!</li>
+                                                <li><span class="checkmark">✓</span> BIGGEST DISCOUNT</li>
+                                                <li><span class="checkmark">✓</span> 60 DAYS GUARANTEE</li>
+                                                <li><span class="checkmark">✓</span> 3 FREE EBOOKS!</li>
+                                             </ul>
+                                          </div>
+                                          <div class="item-buy">
+                                             <div class=" cta-pulse cta">Add to cart <span class="cursor-icon">👆</span></div>
+                                             <img src="assets/main/products/img/cards-dark.webp" alt="Cards" class="card-flags">
+                                          </div>
+                                          <div class="item-totals">
+                                             <div class="totals">Total: <s>$594</s> <b>$294</b></div>
+                                             <div class="shipping">+&nbsp;FREE SHIPPING</div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </a>
+                           </div>
+                           <!-- 6 Bottles -->
+                           <!-- 3 Bottles -->
+                           <div class="col-12 col-md-4 mb-3">
+                              <a href="#" class="item promo buylink oferta-dois">
+                                 <div class="wrapper">
+                                    <div class="item-header">Most Popular</div>
+                                       <div class="item-sides">
+                                          <div class="item-img">
+                                             <div class="supply"><b>2+1 Bottles</b></div>
+                                             <img src="img/prod/Mockup-03 (1).png" alt="3 Bottles">
+                                          </div>
+                                          <div class="item-right">
+                                             <div class="item-info">
+                                                <div class="price">
+                                                   <b><sup>$</sup>69</b><span>PER<br>BOTTLE</span>
+                                                </div>
+                                                <ul class="features-list">
+                                                   <li><span class="checkmark">✓</span> YOU SAVE $90!</li>
+                                                   <li><span class="checkmark">✓</span> 60 DAYS GUARANTEE</li>
+                                                </ul>
+                                             </div>
+                                             <div class="item-buy">
+                                                <div class=" cta-price cta">Add to cart</div>
+                                                <img src="assets/main/products/img/cards.webp" alt="Cards" class="card-flags">
+                                             </div>
+                                             <div class="item-totals">
+                                                <div class="totals">Total: <s>$297</s> <b>$207</b></div>
+                                                <div class="shipping">+&nbsp;FREE SHIPPING</div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                 </div>
+                              </a>
+                           </div>
+                           <!-- 3 Bottles -->
+                           <!-- 2 Bottles -->
+                           <div class="col-12 col-md-4 mb-3">
+                              <a href="#" class="item promo buylink oferta-tres">
+                                 <div class="wrapper">
+                                    <div class="item-header">Basic</div>
+                                    <div class="item-sides">
+                                       <div class="item-img">
+                                          <div class="supply"><b>1 BOTTLE</b></div>
+                                          <img src="img/prod/Mockup-01c.png" alt="1 Bottle">
+                                       </div>
+                                       <div class="item-right">
+                                          <div class="item-info">
+                                             <div class="price">
+                                                <b><sup>$</sup>89</b><span>PER<br>BOTTLE</span>
+                                             </div>
+                                             <ul class="features-list">
+                                                <li><span class="checkmark">✓</span> YOU SAVE $10!</li>
+                                                <li><span class="checkmark">✓</span> 60 DAYS GUARANTEE</li>
+                                             </ul>
+                                          </div>
+                                       
+                                          <div class="item-buy"> 
+                                             <div class=" cta-price cta">Add to cart</div>
+                                             <img src="assets/main/products/img/cards.webp" alt="Cards" class="card-flags">
+                                          </div>
+                                          <div class="item-totals">
+                                             <div class="totals">Total: <s>$99</s> <b>$89</b></div>
+                                             <div class="shipping">+&nbsp; SHIPPING</div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </a>
+                           </div>
+                           <!-- 2 Bottles -->
+                        </div>
+                     </div>
+                  </section>
+                  <!-- Products -->
+                  <!-- FAQ -->
+                  <section id="faq" class="py-5">
+                     <div class="container">
+                        <h2 class="text-center text-white mb-4">Frequently Asked Questions</h2>
+                        <div class="accordion" id="accordionExample">
+                           <div class="accordion-item">
+                              <h2 class="accordion-header">
+                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">Is Choco Burn Safe to use?</button>
+                              </h2>
+                              <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                 <div class="accordion-body">
+                                    Absolutely.Choco Burn is made with 100% natural ingredients and is manufactured in the USA in an FDA-registered facility that follows Good Manufacturing Practices (GMP). However, as with any supplement, it's a good idea to consult your healthcare provider before starting.
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="accordion-item">
+                              <h2 class="accordion-header">
+                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">How Long Will It Take to See Results?</button>
+                              </h2>
+                              <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                 <div class="accordion-body">
+                                    Many Choco Burn users start noticing changes within the first few weeks, but for best results, we recommend sticking with it for at least 3 months. Remember, weight loss is a journey, and consistency is key.
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="accordion-item">
+                              <h2 class="accordion-header">
+                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">Will I Need to Follow a Strict Diet or Exercise?</button>
+                              </h2>
+                              <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                 <div class="accordion-body">
+                                    No extreme diets or intense workouts needed.Choco Burn is designed to help rebalance your gut and naturally boost fat burning. However, pairing it with a balanced diet and a bit of regular movement will supercharge your results.
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="accordion-item">
+                              <h2 class="accordion-header">
+                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">What If I’m Older or Have a Slow Metabolism?</button>
+                              </h2>
+                              <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                 <div class="accordion-body">
+                                   Choco Burn is formulated to support healthy weight management at any age. Many older adults report increased energy and easier weight control. If you have a specific medical condition, we do advise discussing it with your doctor first.
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="accordion-item">
+                              <h2 class="accordion-header">
+                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFour">Can I Use Choco Burn with Other Supplements?</button>
+                              </h2>
+                              <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                 <div class="accordion-body">
+                                    Generally, yes. But if another product has similar ingredients, check with your physician to avoid any redundant overlap.
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="accordion-item">
+                              <h2 class="accordion-header">
+                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseFour">How Many Bottles Should I Order?</button>
+                              </h2>
+                              <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                 <div class="accordion-body">
+                                    For the best experience, most users start with a 3 or 6-month supply. This ensures you give your gut enough time to fully rebalance, and it also locks in the current discount so you won’t run out.
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="accordion-item">
+                              <h2 class="accordion-header">
+                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseFour">Will the Weight Stay Off Once I Stop Taking Choco Burn?</button>
+                              </h2>
+                              <div id="collapseSeven" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                 <div class="accordion-body">
+                                    Many users find they can maintain their progress by continuing the healthy routines they adopt while using Choco Burn—like better food choices and a bit more activity. Because it helps rebalance your gut microbiota, you’re better positioned to keep the weight off for good.
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="accordion-item">
+                              <h2 class="accordion-header">
+                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">What If Choco Burn Doesn’t Work For Me?</button>
+                              </h2>
+                              <div id="collapseEight" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                 <div class="accordion-body">
+                                    We’re so confident in Choco Burn that we offer an ironclad 180-day money-back guarantee. If you’re not fully satisfied for any reason, let us know, and we’ll refund you—no questions asked. We find over 95% of users see great success.
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="accordion-item">
+                              <h2 class="accordion-header">
+                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">How Fast Will I Receive My Order?</button>
+                              </h2>
+                              <div id="collapseNine" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                 <div class="accordion-body">
+                                    We process most orders within 2–3 business days. For U.S. customers, delivery typically takes 5–7 days. International orders can take up to 10–12 days, depending on customs. Six-bottles orders get top priority in shipping.
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="accordion-item">
+                              <h2 class="accordion-header">
+                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">Do I Need to Refrigerate Choco Burn or Store It in a Special Way?</button>
+                              </h2>
+                              <div id="collapseTen" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                 <div class="accordion-body">
+                                    There’s no need for special storage; room temperature is fine. The bottles design is made to protect potency, so feel free to take Choco Burn on the go without worry.
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="accordion-item">
+                              <h2 class="accordion-header">
+                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">What’s the Best Way to Take Choco Burn?</button>
+                              </h2>
+                              <div id="collapseEleven" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                 <div class="accordion-body">
+                                    For optimal results, follow the directions on the label!
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </section>
+                  <!-- FAQ -->
+                  <!-- Who Is -->
+                  <div id="who-is" class="my-4 my-md-5">
+                     <div class="container" style="max-width: 1100px;">
+                        <div class="p-3 p-md-4 rounded-4" style="background-color: var(--primary-color); border: 5px double #ffffff8e;">
+                           <div class="row mx-auto justify-content-center align-items-center text-white">
+                              <div class="col-md-4">
+                                 <h2 class="d-md-none fw-bold mb-3">Who Is Dra. Patrícia Henderson?</h2>
+                                 <img src="img/patricia.jpeg" alt="Doctor" style="width: 100%; max-width: fit-content;">
+                              </div>
+                              <div class="col-md-8 text-start">
+                                 <h2 class="d-none d-md-block fw-bold mb-3">Who Is Dra. Patrícia Henderson?</h2>
+                                 <p>American endocrinologist, 38 years old, graduated from the University of Zurich in Switzerland. She worked as the chief endocrinologist at the University Hospital of Zurich, where she treated Swiss patients who maintained their ideal weight while consuming chocolate daily.She grew up in Ohio, USA, in an obese family: father, mother, and a younger sister, Emma, four years younger. She always believed obesity was a genetic trait of the Henderson family.At age 20, she was accepted into the Medical School at the University of Zurich and moved to Switzerland.During years of training, residency, and 14-hour shifts, she had no time for diets or going to the gym. She ate normally—including chocolate every day like the Swiss do—and naturally lost 60 pounds without even noticing.</p>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- Who Is -->
+                  <!-- Guarantee -->
+                  <section id="guarantee" class="py-5">
+                     <div class="container position-relative">
+                        <div class="row align-items-center justify-content-center">
+                           <div class="col-12 col-md-3 text-center">
+                              <figure><img src="img/garantia.webp" alt="Guarantee" class="mb-3"></figure>
+                           </div>
+                           <div class="col-12 col-md-9 text-start">
+                              <h2 class="fs-2" style="font-weight: 700;">100% Satisfaction or Your Money Back <br class="d-none d-md-block"><span>60-Day Unconditional Guarantee</span></h2>
+                              <p>We believe in the quality of Choco Burn and in our results, and we want you to feel confident in your purchase. That’s why we offer a 60-day guarantee from the date of purchase. If for any reason you are not satisfied with the product, simply contact our team, and we will be happy to assist you with a refund.</p>
+                              <div class="d-flex gap-2 flex-wrap align-items-center justify-content-center mt-3 badges">
+                                 <figure><img src="assets/pages/home/img/gmp.png" alt="Badge"></figure>
+                                 <figure><img src="assets/pages/home/img/fda.png" alt="Badge"></figure>
+                                 <figure><img src="assets/pages/home/img/nat.png" alt="Badge"></figure>
+                                 <figure><img src="assets/pages/home/img/foreign.png" alt="Badge"></figure>
+                                 <figure><img src="assets/pages/home/img/gmo.png" alt="Badge"></figure>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </section>
+                  <!-- Guarantee -->
+                  <!-- CTA Headline -->
+                  <div class="py-3 py-md-5" style="background-color: var(--primary-color);">
+                     <div class="container text-center">
+                        <h2 class="title-claim mb-0 text-white">Hurry! Limited Stock Available – Secure Your Choco Burn Package at 50% Off Today!</h2>
+                        <div class="strip3 flt">
+                           <div class="container bdinpad">
+                              <ul class="strip3-list">
+                                 <li>
+                                    <img src="img/hour-glass.png" alt="" class="hourglass">
+                                    <strong>Choco Burn Bottles Remaining:</strong> <span class="countdown">84</span>
+                                 </li>
+                              </ul>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <style type="text/css">
+                     likes img {
+                        width: 20px;
+                        margin-inline: 5px;
+                     }
+                  </style>
+                  <!-- CTA Headline -->
+                  <!-- Products -->
+                  <div class="shipbx my-4 my-md-5">
+                     <div class="shipiconbx"><img src="img/ship-icon.png" alt=""></div>
+                     <p class="shipbx-txt1">Enjoy <span class="red">FREE SHIPPING</span> on 3&nbsp;and 6-Bottle
+                        Orders!
+                     </p>
+                     <p class="shipbx-txt2">*For long-term results, we recommend choosing the
+                        6&nbsp;bottle&nbsp;option
+                     </p>
+                  </div>
+                  <section class="pb-4 products">
+                     <div class="container">
+                        <div class="row align-items-center">
+                           <!-- 6 Bottles -->
+                           <div class="col-12 col-md-4 mb-3">
+                              <a href="#" class="item promo buylink oferta-um">
+                                 <div class="wrapper">
+                                    <div class="item-header">BEST VALUE!</div>
+                                    <div class="item-sides">
+                                       <div class="item-img">
+                                          <div class="supply"><b>3+3 Bottles</b></div>
+                                          <p>Our Recommended Option</p>
+                                          <img src="img/Mockup06+ebooksc.png" class="hiddenM" alt="6 Bottles plus 3 free ebooks">
+                                          <img src="img/Mockup06+badgec.png" class="hiddenD" alt="6 Bottles">
+                                          <img src="img/ebooks.png" class="hiddenD"  alt="3 free ebooks">
+                                       </div>
+                                       <div class="item-right">
+                                          <div class="item-info">
+                                             <div class="price">
+                                                <b><sup>$</sup>49</b><span>PER<br>BOTTLE</span>
+                                             </div>
+                                             <ul class="features-list">
+                                                <li><span class="checkmark">✓</span> YOU SAVE $300!</li>
+                                                <li><span class="checkmark">✓</span> BIGGEST DISCOUNT</li>
+                                                <li><span class="checkmark">✓</span> 60 DAYS GUARANTEE</li>
+                                                <li><span class="checkmark">✓</span> 3 FREE EBOOKS!</li>
+                                             </ul>
+                                          </div>
+                                          <div class="item-buy">
+                                             <div class=" cta-pulse cta">Add to cart <span class="cursor-icon">👆</span></div>
+                                             <img src="assets/main/products/img/cards-dark.webp" alt="Cards" class="card-flags">
+                                          </div>
+                                          <div class="item-totals">
+                                             <div class="totals">Total: <s>$594</s> <b>$294</b></div>
+                                             <div class="shipping">+&nbsp;FREE SHIPPING</div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </a>
+                           </div>
+                           <!-- 6 Bottles -->
+                           <!-- 3 Bottles -->
+                           <div class="col-12 col-md-4 mb-3">
+                              <a href="#" class="item promo buylink oferta-dois">
+                                 <div class="wrapper">
+                                    <div class="item-header">Most Popular</div>
+                                       <div class="item-sides">
+                                          <div class="item-img">
+                                             <div class="supply"><b>2+1 Bottles</b></div>
+                                             <img src="img/prod/Mockup-03 (1).png" alt="3 Bottles">
+                                          </div>
+                                          <div class="item-right">
+                                             <div class="item-info">
+                                                <div class="price">
+                                                   <b><sup>$</sup>69</b><span>PER<br>BOTTLE</span>
+                                                </div>
+                                                <ul class="features-list">
+                                                   <li><span class="checkmark">✓</span> YOU SAVE $90!</li>
+                                                   <li><span class="checkmark">✓</span> 60 DAYS GUARANTEE</li>
+                                                </ul>
+                                             </div>
+                                             <div class="item-buy">
+                                                <div class=" cta-price cta">Add to cart</div>
+                                                <img src="assets/main/products/img/cards.webp" alt="Cards" class="card-flags">
+                                             </div>
+                                             <div class="item-totals">
+                                                <div class="totals">Total: <s>$297</s> <b>$207</b></div>
+                                                <div class="shipping">+&nbsp;FREE SHIPPING</div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                 </div>
+                              </a>
+                           </div>
+                           <!-- 3 Bottles -->
+                           <!-- 2 Bottles -->
+                           <div class="col-12 col-md-4 mb-3">
+                              <a href="#" class="item promo buylink oferta-tres">
+                                 <div class="wrapper">
+                                    <div class="item-header">Basic</div>
+                                    <div class="item-sides">
+                                       <div class="item-img">
+                                          <div class="supply"><b>1 BOTTLE</b></div>
+                                          <img src="img/prod/Mockup-01c.png" alt="1 Bottle">
+                                       </div>
+                                       <div class="item-right">
+                                          <div class="item-info">
+                                             <div class="price">
+                                                <b><sup>$</sup>89</b><span>PER<br>BOTTLE</span>
+                                             </div>
+                                             <ul class="features-list">
+                                                <li><span class="checkmark">✓</span> YOU SAVE $10!</li>
+                                                <li><span class="checkmark">✓</span> 60 DAYS GUARANTEE</li>
+                                             </ul>
+                                          </div>
+                                       
+                                          <div class="item-buy"> 
+                                             <div class=" cta-price cta">Add to cart</div>
+                                             <img src="assets/main/products/img/cards.webp" alt="Cards" class="card-flags">
+                                          </div>
+                                          <div class="item-totals">
+                                             <div class="totals">Total: <s>$99</s> <b>$89</b></div>
+                                             <div class="shipping">+&nbsp; SHIPPING</div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </a>
+                           </div>
+                           <!-- 2 Bottles -->
+                        </div>
+                     </div>
+                  </section>
+                  <!-- Products -->
+                  <!-- References -->
+                  <section id="references" class="py-3 py-md-5">
+                     <div class="container">
+                        <h2 class="text-center mb-4 mb-md-5 fw-bold" style="color: var(--primary-color);">Scientific References</h2>
+                        <div class="row">
+                           <div class="col-md">
+                              <ol>
+                                 <li>“Phytosterols and Their Role in Reducing Adiposity and Cardiometabolic Risk”<span> – Jones PJ, et al. (Journal of Nutritional Biochemistry, 2017)</span></li>
+                                 <li>“Christensenella minuta: A Key Bacterium for Lean Phenotype and Metabolic Health”<span> – Goodrich JK, et al. (Cell, 2014)</span></li>
+                                 <li>“Twin Studies of Gut Microbiota: Insights into Obesity and Metabolic Disorders”<span> – Turnbaugh PJ, et al. (Proceedings of the National Academy of Sciences, 2010)</span></li>
+                              </ol>
+                           </div>
+                           <div class="col-md">
+                              <ol start="4">
+                                 <li>“Comprehensive Review of Green Tea Extract on Energy Expenditure and Fat Oxidation”<span> – Hsu C, et al. (Journal of the International Society of Sports Nutrition, 2013)</span></li>
+                                 <li>“Vitamin D3 and Insulin Sensitivity: Implications for Weight Control and Metabolic Syndrome”<span> – Pittas AG, et al. (Diabetes Care, 2014)</span></li>
+                                 <li>“Gut Microbiota Manipulation for Weight Management: The Emerging Evidence”<span> – Clarke G, et al. (Nutrition &amp; Metabolism, 2019)</span></li>
+                              </ol>
+                           </div>
+                        </div>
+                     </div>
+                  </section>
+                  <!-- References -->
+               </div>
+               <!--.after-quiz-->
+            </div>
+            <!--.esconder-->
+            <div class="container">
+            <div id="fb-comments">
+            <h2 class="fb-heading"><b>3.158 Comments</b></h2>
+            <div class="comments-container">
+            <div class="comment" data-comment-id="1">
+               <img decoding="async" class="user-avatar" src="img/foto1 (3).jpg" alt="">
+               <div class="comment-data">
+                  <div class="user">
+                     <p class="name">Abigail Walker</p>
+                     <p class="text">I swear I thought it was just another one of those loooong, boring vids. Congrats, Dra. Patrícia, for sharing something that actually WORKS!</p>
+                  </div>
+                  <div class="buttons">
+                     <like>Like</like>
+                     <span>·</span>
+                     <answer>Reply</answer>
+                     <span>·</span>
+                     <time>2h</time>
+                  </div>
+               </div>
+               <likes><img src="img/amei.png"> 10 <img src="img/like.webp"> 23</likes>
+            </div>
+            <div class="comment answer" data-comment-id="1a">
+               <img decoding="async" class="user-avatar" src="img/foto1.PNG" alt="">
+               <div class="comment-data">
+                  <div class="user">
+                     <p class="name">Katherine Lewis</p>
+                     <p class="text">Dra.Henderson is amazingggg 👏</p>
+                  </div>
+                  <div class="buttons">
+                     <like>Like</like>
+                     <span>·</span>
+                     <answer>Reply</answer>
+                     <span>·</span>
+                     <time>35 min</time>
+                  </div>
+               </div>
+               <likes><img src="img/amei.png"> 10 <img src="img/like.webp"> 17</likes>
+            </div>
+            <div class="comment answer" data-comment-id="1b">
+               <img decoding="async" class="user-avatar" src="img/foto1 (1).jpg" alt="">
+               <div class="comment-data">
+                  <div class="user">
+                     <p class="name">Victoria Clark</p>
+                     <p class="text">It’s not just about the numbers. I feel more comfortable in my own skin, and that’s something I haven’t felt in a long time.</p>
+                  </div>
+                  <div class="buttons">
+                     <like>Like</like>
+                     <span>·</span>
+                     <answer>Reply</answer>
+                     <span>·</span>
+                     <time>7 min</time>
+                  </div>
+               </div>
+               <likes><img src="img/amei.png"> 10 <img src="img/like.webp"> 11</likes>
+            </div>
+            <div class="comment answer" data-comment-id="1d">
+               <img decoding="async" class="user-avatar" src="img/foto1 (2).jpg" alt="">
+               <div class="comment-data">
+                  <div class="user">
+                     <p class="name">Sarah Smith</p>
+                     <p class="text">Lol same here! My hubby thought I was ill ’cause I started eating half of what I used to overnight 😂</p>
+                  </div>
+                  <div class="buttons">
+                     <like>Like</like>
+                     <span>·</span>
+                     <answer>Reply</answer>
+                     <span>·</span>
+                     <time>5 min</time>
+                  </div>
+               </div>
+                 <likes><img src="img/amei.png"> 10 <img src="img/like.webp"> 6</likes>
+            </div>
+            <!---->
+            <div class="comment" data-comment-id="3">
+               <img decoding="async" class="user-avatar" src="img/foto3.PNG" alt="">
+               <div class="comment-data">
+                  <div class="user">
+                     <p class="name">Suzy Green</p>
+                     <p class="text">I dunno guys, is it legit or just marketing hype??</p>
+                  </div>
+                  <div class="buttons">
+                     <like>Like</like>
+                     <span>·</span>
+                     <answer>Reply</answer>
+                     <span>·</span>
+                     <time>1h</time>
+                  </div>
+               </div>
+               <likes><img src="img/amei.png"> 10 <img src="img/like.webp"> 54</likes>
+            </div>
+            <div class="comment answer" data-comment-id="3a">
+               <img decoding="async" class="user-avatar" src="img/foto1 (5).jpg" alt="">
+               <div class="comment-data">
+                  <div class="user">
+                     <p class="name">Alyssa Stewart</p>
+                     <p class="text">Suzy, I was super skeptical too, but it’s real. Give it a try for a few days and see. I was shocked how fast it worked for me</p>
+                  </div>
+                  <div class="buttons">
+                     <like>Like</like>
+                     <span>·</span>
+                     <answer>Reply</answer>
+                     <span>·</span>
+                     <time>1h</time>
+                  </div>
+               </div>
+               <likes><img src="img/amei.png"> 10 <img src="img/like.webp"> 76</likes>
+            </div>
+            <div class="comment answer" data-comment-id="3b">
+               <img decoding="async" class="user-avatar" src="img/foto2.PNG" alt="">
+               <div class="comment-data">
+                  <div class="user">
+                     <p class="name">Jordan Baker</p>
+                     <p class="text">I was unsure at first too, but now I'm feeling amazing! It's like my body and mind hit the reset button, haha.</p>
+                  </div>
+                  <div class="buttons">
+                     <like>Like</like>
+                     <span>·</span>
+                     <answer>Reply</answer>
+                     <span>·</span>
+                     <time>1h</time>
+                  </div>
+               </div>
+               <likes><img src="img/amei.png"> 10 <img src="img/like.webp"> 59</likes>
+            </div>
+            <!---->
+            <div class="comment" data-comment-id="4">
+               <img decoding="async" class="user-avatar" src="img/fb/user1-1.webp" alt="">
+               <div class="comment-data">
+                  <div class="user">
+                     <p class="name">Amanda Miller</p>
+                     <p class="text">Congrats,Dra. Patrícia! With so many scams online, it’s rare to see something that’s actually helpful. You deserve all the success and more 👏👏</p>
+                  </div>
+                  <div class="buttons">
+                     <like>Like</like>
+                     <span>·</span>
+                     <answer>Reply</answer>
+                     <span>·</span>
+                     <time>19 min</time>
+                  </div>
+               </div>
+               <likes><img src="img/amei.png"> 10 <img src="img/like.webp"> 35</likes>
+            </div>
+            <!---->
+            <div class="comment" data-comment-id="6">
+               <img decoding="async" class="user-avatar" src="img/fb/nova1 (4).jpg" alt="">
+               <div class="comment-data">
+                  <div class="user">
+                     <p class="name">Rachel Thomas</p>
+                     <p class="text">Honestly, I’ve tried everything—methods, tips, strategies... but nothing had such a positive impact like what I learned from you. I feel lighter, more energized, and full of life. Thank you,Dra.Henderson 🥰</p>
+                  </div>
+                  <div class="buttons">
+                     <like>Like</like>
+                     <span>·</span>
+                     <answer>Reply</answer>
+                     <span>·</span>
+                     <time>2h</time>
+                  </div>
+               </div>
+               <likes><img src="img/amei.png"> 10 <img src="img/like.webp"> 67</likes>
+            </div>
+            <div class="comment answer" data-comment-id="6a">
+               <img decoding="async" class="user-avatar" src="img/fb/noprofile.webp" alt="">
+               <div class="comment-data">
+                  <div class="user">
+                     <p class="name">Lisa Walker</p>
+                     <p class="text">Oh my God, same here! I was so tired of quick fixes!</p>
+                  </div>
+                  <div class="buttons">
+                     <like>Like</like>
+                     <span>·</span>
+                     <answer>Reply</answer>
+                     <span>·</span>
+                     <time>2h</time>
+                  </div>
+               </div>
+               <likes><img src="img/amei.png"> 10 <img src="img/like.webp"> 44</likes>
+            </div>
+            <!---->
+            <div class="comment" data-comment-id="8">
+               <img decoding="async" class="user-avatar" src="img/fb/nova1 (3).jpg" alt="">
+               <div class="comment-data">
+                  <div class="user">
+                     <p class="name">Donna Clark</p>
+                     <p class="text">Has anyone else tried this? Or am I just the only one believing in internet miracles? 😂</p>
+                  </div>
+                  <div class="buttons">
+                     <like>Like</like>
+                     <span>·</span>
+                     <answer>Reply</answer>
+                     <span>·</span>
+                     <time>2h</time>
+                  </div>
+               </div>
+               <likes><img src="img/amei.png"> 10 <img src="img/like.webp"> 87</likes>
+            </div>
+            <div class="comment answer" data-comment-id="8a">
+               <img decoding="async" class="user-avatar" src="img/fb/user8-1.webp" alt="">
+               <div class="comment-data">
+                  <div class="user">
+                     <p class="name">Veronica Escher</p>
+                     <p class="text"> I tried it with no expectations, but now I’m shocked! Just one week and I already feel like a new person — I don’t even know what’s happening, I’m just going with it 😂</p>
+                  </div>
+                  <div class="buttons">
+                     <like>Like</like>
+                     <span>·</span>
+                     <answer>Reply</answer>
+                     <span>·</span>
+                     <time>2h</time>
+                  </div>
+               </div>
+               <likes><img src="img/amei.png"> 10 <img src="img/like.webp"> 64</likes>
+            </div>
+            <div class="comment answer" data-comment-id="8b">
+               <img decoding="async" class="user-avatar" src="img/fb/nova1 (1).jpg" alt="">
+               <div class="comment-data">
+                  <div class="user">
+                     <p class="name">Savannah Perry</p>
+                     <p class="text">It really works. Been using it for 2 months, and I feel like a NEW person. Way less hungry, less stress, less cravings… it’s a total game changer.</p>
+                  </div>
+                  <div class="buttons">
+                     <like>Like</like>
+                     <span>·</span>
+                     <answer>Reply</answer>
+                     <span>·</span>
+                     <time>2h</time>
+                  </div>
+               </div>
+               <likes><img src="img/amei.png"> 10 <img src="img/like.webp"> 89</likes>
+            </div>
+            <div class="comment answer" data-comment-id="8c">
+               <img decoding="async" class="user-avatar" src="img/fb/user3-1.webp" alt="">
+               <div class="comment-data">
+                  <div class="user">
+                     <p class="name">Alyssa Stewart</p>
+                     <p class="text">Sameeee! Started yesterday, not hungry at ALL. It’s literally like flipping a switch 😅</p>
+                  </div>
+                  <div class="buttons">
+                     <like>Like</like>
+                     <span>·</span>
+                     <answer>Reply</answer>
+                     <span>·</span>
+                     <time>2h</time>
+                  </div>
+               </div>
+               <likes><img src="img/amei.png"> 10 <img src="img/like.webp"> 92</likes>
+            </div>
+            <!---->
+            <div class="comment" data-comment-id="9">
+               <img decoding="async" class="user-avatar" src="img/fb/nova1 (2).jpg" alt="">
+               <div class="comment-data">
+                  <div class="user">
+                     <p class="name">Hailey Foster</p>
+                     <p class="text"> Dra.Henderson, always nails it and says what no one else dares to! Girl, you’re my inspo ❤️ I’m keep doing the recipe cause I’m finally fitting back into my old clothes haha</p>
+                  </div>
+                  <div class="buttons">
+                     <like>Like</like>
+                     <span>·</span>
+                     <answer>Reply</answer>
+                     <span>·</span>
+                     <time>1h</time>
+                  </div>
+               </div>
+               <likes><img src="img/amei.png"> 10 <img src="img/like.webp"> 32</likes>
+            </div>
+            <!---->
+            <h4 class="comments-closed">This post is no longer receiving comments!</h4>
+         </section>
+         <footer style="text-align: center;">
+            <a href="paginas/privacidade.html" class="privacidade">Privacy Policy</a>
+            <br>
+            <br>
+            <a href="paginas/termos.html" class="termos">Terms of Use</a>
+            <br>
+            <br>
+            <h3> 2025. All rights reserved.</h3>
+         </footer>
+         </footer>
+         </section>
+         <!-- Purchase Notifications -->
+         <div id="purchase-notifications" class="purchases-disclaimer">
+            <div class="purchases-box">
+               <div class="purchased-bottle">
+                  <img id="two-bottles" src="img/prod/Mockup-01c.png" style="display: none;">
+                  <img id="three-bottles" src="img/prod/Mockup-03 (1).png" style="display: none;">
+                  <img id="six-bottles" src="img/prod/Mockup-06.png" style="display: none;">
+               </div>
+               <div class="purchase-info">
+                  <span id="customer-name"></span> in <span id="customer-location"></span> just bought <span id="items-purchased"></span>!
+               </div>
+            </div>
+         </div>
+         <!-- END Purchase Notifications -->
+      </main>
+
+      <script>
+         document.addEventListener('DOMContentLoaded', function() {
+               // ORIENTAÇÃO - CHECKOUT 1ª OFERTA 
+               const firstUrl = "https://pay.pagamerican.net/w7tNJoro";
+               // ORIENTAÇÃO - CHECKOUT 2ª OFERTA
+               const secUrl = "https://pay.pagamerican.net/PvFSb20p";
+               // ORIENTAÇÃO - CHECKOUT 3ª OFERTA
+               const thirdUrl = "https://pay.pagamerican.net/VnbyzzTA";
+
+               // Botão da classe '.oferta-um'
+               const firstButtons = document.querySelectorAll('.oferta-um');
+               firstButtons.forEach(function(button) {
+                  button.href = firstUrl;
+               });
+
+               // Botão da classe '.oferta-dois'
+               const secButtons = document.querySelectorAll('.oferta-dois');
+               secButtons.forEach(function(button) {
+                  button.href = secUrl;
+               });
+
+               // Botão da classe '.oferta-um'
+               const thirdButtons = document.querySelectorAll('.oferta-tres');
+               thirdButtons.forEach(function(button) {
+                  button.href = thirdUrl;
+               });
+         });
+      </script>
+      <!-- Bootstrap -->
+      <script type="text/javascript" src="assets/main/bootstrap/bootstrap.bundle.min.js"></script>
+      <!-- Purchase Notifications VBL JS -->
+      <script type="text/javascript" src="assets/pages/vsl/vbl/js/purchase-notifications-vbl.js"></script>
+      <!-- Qty Remaining -->
+      <script type="text/javascript" src="assets/pages/vsl/vbl/js/qty-remaining-vbl.js"></script>
+      <!-- Display Today Date -->
+      <script>
+         function obterDataFormatada() {
+            var data = new Date();
+            var dia = formatarNumero(data.getDate());
+            var mes = formatarNumero(data.getMonth() + 1);
+            var ano = data.getFullYear();
+            var dataFormatada = mes + '/' + dia + '/' + ano;
+            return dataFormatada;
+         }
+         function formatarNumero(numero) {
+            return numero < 10 ? '0' + numero : numero;
+         }
+         document.querySelector('.data_atual').innerHTML = obterDataFormatada();
+      </script>
+      <!-- Hide Comments after video -->
+      <style>.esconder {display: none}</style>
+      <script type="text/javascript">
+         function navigateToBottles() {
+            const quizSection = document.querySelector('#products');
+            if (quizSection) {
+               const top = quizSection.offsetTop;
+               window.scrollTo({ top, behavior: 'smooth' });
+            }
+         }
+      </script>
+      <style>.esconder {display: none}</style>
+      <script>
+        
+        var listPitch = {
+          '69696e75fe29492b27c8f618': { delay: 2790, utm: 'utm_content=LEAD42' },
+          '6969a1d735c2a62b3c0f8504': { delay: 2684, utm: 'utm_content=LEAD5' },
+          '696ebb55c9aefd66086c7f5d': { delay: 2754, utm: 'utm_content=LEAD5' },
+          '69740925d186076a68547e99': { delay: 2792, utm: 'utm_content=LEAD52' },
+        };
+
+        var alreadyInitialized = false;
+
+          var updateLinksWithUTM = function(utmParam) {
+            var links = document.querySelectorAll('a[href]:not([href*="#"])');
+            var separator = '?';
+            var queryString = separator + utmParam;
+            for (var i = 0; i < links.length; i++) {
+              var link = links[i];
+              if (link.href.indexOf(utmParam) !== -1) continue;
+              if(utmParam === undefined) return
+              var baseUrl = link.href.split('?')[0];
+              link.href = baseUrl + queryString;
+            }
+          };
+        
+          document.addEventListener('player:ready', function(event) {
+            if (alreadyInitialized) return;
+        
+            var detail = event.detail || {};
+            var config = detail.config || {};
+            var player = detail.player || document.querySelector('vturb-smartplayer');
+            var playerId = config.id;
+            var pitchConfig = listPitch[playerId];
+        
+            if (!playerId || !pitchConfig) return;
+        
+            alreadyInitialized = true;
+        
+            player.displayHiddenElements(pitchConfig.delay, ['.esconder', 'quiz-container'], { persist: true, callback: () =>
+                document
+                  .querySelectorAll(".esconder")
+                  .forEach((e) =>
+                    e.style.setProperty("display", "block", "important")
+                  ) });
+          });
+      </script>
+      
+      <script
+  src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+  data-utmify-prevent-xcod-sck
+  data-utmify-prevent-subids
+  data-utmify-ignore-iframe
+  data-utmify-is-cartpanda
+  async
+  defer
+></script>
+      
+   </body>
+</html>
